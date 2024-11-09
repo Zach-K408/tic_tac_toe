@@ -32,6 +32,7 @@ void initializeBoard(char board[][SIZE]) {
 
 //display game 
 void displayBoard(char board[][SIZE]) {
+    printf("\n");
     for (int i=0; i<SIZE; i++) {
         for (int j=0; j<SIZE; j++) {
             printf(" %c ",board[i][j]);
@@ -55,7 +56,7 @@ bool movesLeft(char board[][SIZE]) {
 }
 
 //check if a player has won
-char checkStatus(char board[][SIZE]) {
+char checkWinner(char board[][SIZE]) {
 	//check rows
     for (int i = 0; i < SIZE; i++) {
         if (board[i][0] == board[i][1] && board[i][1] == board[i][2] && board[i][0] != '-') {
@@ -76,7 +77,12 @@ char checkStatus(char board[][SIZE]) {
         return board[0][2]; //return the winning character
     }
 
-    return '-'; //no winner
+    // check for tie
+    if (movesLeft(board) == false) {
+        return 't';
+    } else {
+        return '-';
+    }
 }
 
 //move player
@@ -146,13 +152,12 @@ int main(void) {
             displayBoard(board);
             printf("player %c has won!!!\n",winner);
             break;
-        }
-        //check for draw
-        if (!movesLeft(board)) {
+        } else if (winner == 't') {
             displayBoard(board);
             printf("it's a draw!!\n");
             break;
         }
+
         //switch player
         if (player == 'x') {
             player = 'o';
