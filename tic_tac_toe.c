@@ -147,7 +147,7 @@ int main(void) {
         playerMove(player,board);
 
         //check for winner
-        winner = checkStatus(board);
+        winner = checkWinner(board);
         if (winner == 'x' || winner == 'o') {
             displayBoard(board);
             printf("player %c has won!!!\n",winner);
